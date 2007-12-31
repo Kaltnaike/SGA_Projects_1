@@ -1,0 +1,4 @@
+SELECT SUM(cost_price)
+FROM stationeries;
+
+               

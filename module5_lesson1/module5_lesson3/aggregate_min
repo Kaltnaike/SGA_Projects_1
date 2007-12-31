@@ -1,0 +1,4 @@
+SELECT name
+FROM stationeries
+WHERE quantity_in_stock = (SELECT MIN(quantity_in_stock)
+FROM stationeries)

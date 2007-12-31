@@ -1,0 +1,4 @@
+SELECT name
+FROM stationeries
+WHERE quantity_in_stock = (SELECT MAX(quantity_in_stock)
+FROM stationeries)

@@ -106,11 +106,67 @@ def sufficient_items_desc_cost_price():
      print(items)
 sufficient_items_desc_cost_price()
 
+#Amount The Business OWner invested in the procurement of the items
+def invested_amount():
+    query ="""
+    SELECT SUM(cost_price)
+    FROM stationeries;
+    """
+    print('Total amount invested in the Procurement of items')
+    cursor.execute(query)
+    items = cursor.fetchall()
+    print(items)
+invested_amount()
+
+#The Average quantity of items in stock
+def avg_quantity():
+    query ="""
+    SELECT AVG(quantity_in_stock)
+    FROM stationeries;
+    """
+    print('Average Quantity of Items in Stock')
+    cursor.execute(query)
+    items = cursor.fetchmany(10)
+    print(items)
+avg_quantity()
+
+#The item with the least Quantity in stock
+def min_quantity():
+    query ="""
+    SELECT name
+    FROM stationeries
+    WHERE quantity_in_stock = (SELECT MIN(quantity_in_stock)
+    FROM stationeries)
+    """
+    print('This is the Item with the least Quantity in stock')
+    cursor.execute(query)
+    items = cursor.fetchmany(10)
+    print(items)
+min_quantity()
+
+#The item with the most Quantity in stock
+def max_quantity():
+    query ="""
+    SELECT name
+    FROM stationeries
+    WHERE quantity_in_stock = (SELECT MAX(quantity_in_stock)
+    FROM stationeries)
+    """
+    print('This is the Item with the most Quantity in stock')
+    cursor.execute(query)
+    items = cursor.fetchmany(10)
+    print(items)
+max_quantity()
+
+
+
+
+
 #commit to database
-conn.commit()
+#conn.commit()
 
 #close your connection
-conn.close()
+#conn.close()
 
 
 

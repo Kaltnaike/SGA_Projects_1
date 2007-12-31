@@ -1,0 +1,2 @@
+SELECT AVG(quantity_in_stock)
+FROM stationeries;
