@@ -1,4 +1,4 @@
-#Creatina a Class called BankAccount
+#Create a Class called BankAccount
 class BankAccount:
 
     def __init__(self):
