@@ -5,7 +5,7 @@ import sqlite3
 print('Successfully Imported module')
 
 #create or connect to a database
-conn = sqlite3.connect('SGA_1_3_learners.db')
+conn = sqlite3.connect('SGA1_3_learners.db')
 
 #check that database has been connected succesfully
 print("Database created successfully!") ; print(type(conn))
