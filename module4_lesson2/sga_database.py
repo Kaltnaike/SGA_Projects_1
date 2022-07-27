@@ -19,8 +19,8 @@ print("Cursor created sucessfully \n", type(cursor))
 
 #create a table called students with four columns that accept text inputs
 # cursor.execute("""
-#                 CREATE TABLE students (
-#                        first_name text,
+#                  CREATE TABLE students (
+#                         first_name text,
 #                        last_name text,
 #                        email text,
 #                        course text
@@ -103,5 +103,12 @@ print("first_name"+ "\t Surname"+ "\t E-mail" "\t\t\t\t   Course  \n"  f"{'.' * 
 for item in items:
     first_name, last_name, email, course = item
     print(f"{first_name:16}{last_name:16}{email}\t\t{course}")
+
+#commit to database
+conn.commit()
+
+#close your connection
+conn.close()
+
 
 
