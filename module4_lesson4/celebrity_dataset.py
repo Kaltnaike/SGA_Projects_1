@@ -19,16 +19,16 @@ print("Cursor created sucessfully \n", type(cursor))
 
 
 #create a table called celebs with six columns that accept text,integer inputs
-# cursor.execute("""
-#                  CREATE TABLE celebs (
-#                         name text,
-#                         genre text,
-#                         num_albums integer,
-#                         age integer,
-#                         awards integer,
-#                         years_in_industry integer
-#                 )
-# """)
+cursor.execute("""
+                 CREATE TABLE celebs (
+                        name text,
+                        genre text,
+                        num_albums integer,
+                        age integer,
+                        awards integer,
+                        years_in_industry integer
+                )
+""")
                 
 #check that it is executed successfully
 print(" Celebs database created successfully")
