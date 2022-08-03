@@ -18,14 +18,14 @@ print("Cursor created sucessfully \n", type(cursor))
 
 
 #create a table called students with four columns that accept text inputs
-# cursor.execute("""
-#                  CREATE TABLE students (
-#                         first_name text,
-#                        last_name text,
-#                        email text,
-#                        course text
-#                 )
-# """)
+cursor.execute("""
+                 CREATE TABLE students (
+                        first_name text,
+                       last_name text,
+                       email text,
+                       course text
+                )
+""")
                 
 #check that it is executed successfully
 #print(" Students Table created successfully")
