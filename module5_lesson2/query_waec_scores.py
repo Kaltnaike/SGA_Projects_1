@@ -1,5 +1,8 @@
 # Importing SQLite3
+from functools import total_ordering
+from pydoc import describe
 import sqlite3
+from unicodedata import name
 
 #Connect to Database
 conn = sqlite3.connect("scores.db")
@@ -11,87 +14,74 @@ cursor = conn.cursor()
 cursor.execute("""SELECT * FROM waec_scores""")
 
 items = cursor.fetchall()
-# print(items)
+#print(items)
 
 #Which Student Scored Highest in Maths
 def max_math():
-    query = """
-    SELECT Name
-    FROM waec_scores
-    WHERE Maths = (SELECT MAX(Maths) 
-    FROM waec_scores)
-    """
-    print('This Student Scored Highest in  Maths!')
-    cursor.execute(query)
+    cursor.execute("SELECT name,MAX(Maths) FROM waec_scores")
     items = cursor.fetchall()
-    print(items)
+    for i in items:
+        print("The Student Who Scored the Highest in Maths is "+i[0]+" with the Score of",i[1], "\n"f"{'.'*120}")
 max_math()
 
 #Which Student Scored Lowest in English
 def min_english():
-    query = """
-    SELECT Name
-    FROM waec_scores 
-    WHERE english = (SELECT MIN(English) 
-    FROM waec_scores)
-    """
-    print('This Student Scored Lowest in English!')
-    cursor.execute(query)
+    cursor.execute("SELECT name,MIN(English) FROM waec_scores")
     items = cursor.fetchall()
-    print(items)
+    for i in items:
+        print("The Student Who had The Least Score in English is "+i[0]+" with the Score of",i[1], "\n"f"{'.'*120}")
+    
 min_english()
 
 #Average score of Students in Maths
 def avg_math():
-    query = """
-    SELECT AVG(Maths)
-    FROM waec_scores
-    """
-    print('This is the Average Score of Students in Maths!')
-    cursor.execute(query)
+    cursor.execute("SELECT AVG(Maths) FROM waec_scores")
     items = cursor.fetchall()
-    print(items)
+    for i in items:
+        print("Average Score of Students in Maths is ",i[0], "\n"f"{'.'*120}")
 avg_math()
 
 # Average Score of Student in English
 def avg_english():
-    query = """
-    SELECT AVG(English)
-    FROM waec_scores
-    """
-    print('This is the Average Score of Students in English!')
-    cursor.execute(query)
+    cursor.execute("SELECT AVG(English) FROM waec_scores")
     items = cursor.fetchall()
-    print(items)
+    for i in items:
+        print("Average Score of Students in English is ",i[0], "\n"f"{'.'*120}")
 avg_english()
 
 # Best Performing Student in across all nine subjects in terms of overall scores
 def best_overall():
-    query = """
-    SELECT * 
+    cursor.execute("""
+    SELECT name,
+    SUM(Maths+English+Chemistry+Physics+Biology+Economics+Civics+Yoruba+French)
+    AS total
     FROM waec_scores
-    WHERE (Maths+English+Chemistry+Physics+Biology+Economics+Civics+Yoruba+French)=(SELECT MAX(Maths+English+Chemistry+Physics+Biology+Economics+Civics+Yoruba+French)
-    FROM waec_scores)
-    """
-    print('Best Performing Student who Aced all Subjects!')
-    cursor.execute(query)
+    GROUP BY name
+    ORDER BY total DESC
+    LIMIT 1
+    """)
     items = cursor.fetchall()
-    print(items)
+    for i in items:
+        print("Best Overall Performing Student "+i[0]+" with the Aggregate Score of",i[1], " in all nine Subjects Kudos!" "\n"f"{'.'*120}")
 best_overall()
 
 #  Best Performing Student in across all nine subjects in terms of average scores
 def best_avg():
-    query = """
-    SELECT *
+    cursor.execute("""
+    SELECT name,
+    AVG(Maths+English+Chemistry+Physics+Biology+Economics+Civics+Yoruba+French)
+    AS average
     FROM waec_scores
-    WHERE (Maths+English+Chemistry+Physics+Biology+Economics+Civics+Yoruba+French)=(SELECT AVG(Maths+English+Chemistry+Physics+Biology+Economics+Civics+Yoruba+French)
-    FROM waec_scores)
-    """
-    print('Best Performing Student who passed all Subjects on Average!')
-    cursor.execute(query)
+    GROUP BY name
+    ORDER BY average DESC
+    LIMIT 3 
+    """)
     items = cursor.fetchall()
-    print(items)
+    for i in items:
+        print("Best Overall Average Student "+i[0]+" with the Average Score of",i[1], " in all nine Subjects Keep Growing!" "\n"f"{'.'*120}")
+    
 best_avg()
+# could use LIMIT 1 but it is most likely going to fall on the Top student, using LIMIT 3 gives us an idea of The Average Students in the Class
 
 # commit the changes
 conn.commit()

@@ -33,14 +33,14 @@ CREATE TABLE waec_scores(
 )
 """
 
-cursor.execute(create_table)
+#cursor.execute(create_table)
 
 #Check
 print("Table Created Successfully")
 
 
 #load existing csv file
-with open('waec.csv',"r") as opened_file:
+with open('studentwaec.csv',"r") as opened_file:
     read_file = csv.reader(opened_file)
     
     #Skip header
